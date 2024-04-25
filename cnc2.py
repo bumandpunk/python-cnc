@@ -1,7 +1,7 @@
 '''
 Date: 2024-04-20 09:53:25
 LastEditors: Zfj
-LastEditTime: 2024-04-25 10:59:55
+LastEditTime: 2024-04-25 11:31:23
 FilePath: /python-cnc/cnc2.py
 Description: 
 '''
@@ -50,7 +50,7 @@ def copy_folder(src, dest):
 
 def download_file():
   
-    file_names = get_name2.main()  # 需要实现这个函数
+    file_names = get_name2.main()  # 获取需要下载的文件名称
 
     usb_drives = find_usb_drives()  # 查找USB驱动器路径列表
     if not usb_drives:

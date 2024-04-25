@@ -1,8 +1,8 @@
 '''
 Date: 2024-04-20 13:46:01
 LastEditors: Zfj
-LastEditTime: 2024-04-20 15:41:27
-FilePath: /cool-admin-vue/get_name.py
+LastEditTime: 2024-04-25 11:32:09
+FilePath: /python-cnc/get_name2.py
 Description: 
 '''
 import json
@@ -42,33 +42,8 @@ def fetch_token(username, password):
 
 # Fetch file names from the CNC table using code from shortChain data
 def fetch_form_data(token, value):
-    # url = 'https://tp.cewaycloud.com/fd/formInstance/page'
-    # headers = {
-    #     'accept': 'application/json',
-    #     'authorization': f'Bearer {token}',
-    #     'content-type': 'application/json;charset=UTF-8',
-    #     'platform-id': '1689154431733325826',
-    #     'tenant-id': '1660451255092543490'
-    # }
-    # data_payload = {
-    #     "templateId": "1780225248372080640",
-    #     "current": 1,
-    #     "size": 10,
-    #     "queryFieldList": [{"fieldName": "a171350602412975401", "fieldValue": value, "operType": "fuzzy"}]
-    # }
-    # response = requests.post(url, headers=headers, json=data_payload)
-    # if response.status_code == 200:
-    #     records = response.json().get('data', {}).get('records', [])
-    #     if records:
-    #         original_file_names = [item['originalFileName'] for item in json.loads(records[0]['a171350603547099936'])]
-    #         print('文件列表', original_file_names)
-            # return original_file_names
             return value
-    #     else:
-    #         print('暂无需要下载文件')
-    # else:
-    #     print('Error fetching form data:', response.text)
-
+ 
 # 轮询列表
 def fetch_data(token):
     url = 'https://tp.cewaycloud.com/fd/formInstance/page'
