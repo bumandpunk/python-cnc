@@ -1,7 +1,7 @@
 '''
 Date: 2024-04-20 09:53:25
 LastEditors: Zfj
-LastEditTime: 2024-04-25 11:31:23
+LastEditTime: 2024-04-25 13:50:24
 FilePath: /python-cnc/cnc2.py
 Description: 
 '''
@@ -66,9 +66,16 @@ def download_file():
     # share_path = r"\\10.10.30.2\1"
     share_path = r"\\192.168.9.3\DD2023\部门文件\CNC加工部"
     if file_names:
-    # 为每个文件进行复制操作
-     
-    #  for file_name in file_names:
+        # 删除现有文件夹
+        delfiles = [file for file in os.listdir(destination_drive) if os.path.isfile(os.path.join(destination_drive, file))]
+        for file in delfiles:
+            file_path = os.path.join(destination_drive, file)
+        try:
+            shutil.rmtree(file_path)
+            print(f"Deleted: {file_path}")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
+       # 为每个文件进行复制操作
         source_folder = os.path.join(share_path, file_names)
         destination = os.path.join(destination_drive, file_names)
         print("Source:", source_folder)
