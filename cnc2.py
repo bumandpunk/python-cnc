@@ -1,8 +1,8 @@
 '''
 Date: 2024-04-20 09:53:25
 LastEditors: Zfj
-LastEditTime: 2024-04-20 16:09:01
-FilePath: /cool-admin-vue/Users/zfj/Desktop/test.py
+LastEditTime: 2024-04-25 10:59:55
+FilePath: /python-cnc/cnc2.py
 Description: 
 '''
 # https://u.cewaycloud.com/scan-code?short-chain=/aE2ayUYeaa
@@ -22,6 +22,7 @@ def find_usb_drives():
     #         drives.append(part.mountpoint)
     # print(drives[0])
     # return drives[0]
+    # 无线u盘配置的地址
     return r"\\192.168.3.11\udisk"
 
 def copy_folder(src, dest):
