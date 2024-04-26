@@ -1,7 +1,7 @@
 '''
 Date: 2024-04-20 09:53:25
 LastEditors: Zfj
-LastEditTime: 2024-04-25 13:50:24
+LastEditTime: 2024-04-26 10:50:51
 FilePath: /python-cnc/cnc2.py
 Description: 
 '''
@@ -34,7 +34,7 @@ def copy_folder(src, dest):
 
         if not os.path.exists(dest):
             os.makedirs(dest, exist_ok=True)
-        
+
         for file in files:
             dest_file = file.replace(src, dest)
             dest_dir = os.path.dirname(dest_file)
@@ -49,7 +49,7 @@ def copy_folder(src, dest):
 
 
 def download_file():
-  
+
     file_names = get_name2.main()  # 获取需要下载的文件名称
 
     usb_drives = find_usb_drives()  # 查找USB驱动器路径列表
@@ -61,38 +61,43 @@ def download_file():
     destination_drive = usb_drives
     # destination_drive = usb_drives[0]
     print("Using USB drive:", destination_drive,file_names)
-    
+
     # 共享文件夹路径
     # share_path = r"\\10.10.30.2\1"
     share_path = r"\\192.168.9.3\DD2023\部门文件\CNC加工部"
     if file_names:
         # 删除现有文件夹
-        delfiles = [file for file in os.listdir(destination_drive) if os.path.isfile(os.path.join(destination_drive, file))]
-        for file in delfiles:
-            file_path = os.path.join(destination_drive, file)
+        all_entries = os.listdir(destination_drive)
+        for entry in all_entries:
+         entry_path = os.path.join(destination_drive, entry)
+         print(entry_path)
         try:
-            shutil.rmtree(file_path)
-            print(f"Deleted: {file_path}")
+            if os.path.isfile(entry_path): # 如果是文件，则使用 os.remove()
+                os.remove(entry_path)
+                print(f"Deleted file: {entry_path}")
+            elif os.path.isdir(entry_path): # 如果是目录，则使用 shutil.rmtree()
+                shutil.rmtree(entry_path)
+                print(f"Deleted directory and its contents: {entry_path}")
         except Exception as e:
-            print(f"Error deleting {file_path}: {e}")
+            print(f"Error deleting {entry_path}: {e}")
        # 为每个文件进行复制操作
         source_folder = os.path.join(share_path, file_names)
         destination = os.path.join(destination_drive, file_names)
         print("Source:", source_folder)
         print("Destination:", destination)
-        
+
         if os.path.exists(source_folder):
             copy_folder(source_folder, destination)
             print("Copy operation completed successfully for:", file_names)
         else:
             print("Specified source does not exist for:", file_names)
-    
-    
+
+
 
 def repeat_func():
     while True:
         download_file()
         time.sleep(5)
-        
+
 t = threading.Thread(target=repeat_func)
 t.start()
